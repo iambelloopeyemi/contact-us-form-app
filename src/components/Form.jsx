@@ -1,21 +1,17 @@
-
+import { useState } from "react";
 import axios from "axios";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import { validationSchema } from "./Validation";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-const validationSchema = Yup.object({
-  name: Yup.string().required("Required"),
-  email: Yup.string().email("Invalid email address").required("Required"),
-  message: Yup.string().required("Required"),
-});
+export default function Form() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-export default function ContactUsForm(props) {
- 
-  console.log(props);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -24,16 +20,23 @@ export default function ContactUsForm(props) {
       message: "",
     },
     validationSchema: validationSchema,
-    onSubmit: async () => {
+
+    onSubmit: async (values, actions) => {
       try {
+        setLoading(!loading);
         const response = await axios.post(
           "https://my-json-server.typicode.com/tundeojediran/contacts-api-server/inquiries"
-        ); // Send the form data to the API endpoint
-        console.log(response.data); // Log the API response
+        );
+        setData(JSON.stringify(values, null, 2));
+        console.log(JSON.stringify(values, null, 2));
+        alert(JSON.stringify(values, null, 2));
       } catch (error) {
         console.error(error);
-        // Log any errors that occur
+        setError(error);
+      } finally {
+        setLoading(loading);
       }
+      actions.resetForm();
     },
   });
   return (
@@ -42,10 +45,20 @@ export default function ContactUsForm(props) {
         component="form"
         className="form"
         sx={{
-          "& .MuiTextField-root": { m: 1, width: "35ch" },
+          "& .MuiTextField-root": { m: 1, width: "40ch" },
         }}
         onSubmit={formik.handleSubmit}
       >
+        {data && (
+          <Typography component="p" variant="body2">
+            Your message was submitted successfully
+          </Typography>
+        )}
+        {error && (
+          <Typography component="p" variant="body2">
+            Your message submission was not successful
+          </Typography>
+        )}
         <TextField
           required
           size="small"
@@ -102,12 +115,12 @@ export default function ContactUsForm(props) {
           helperText={formik.touched.message && formik.errors.message}
         />
         <Button
-          className="button"
           color="primary"
           variant="contained"
-          type="submit"
+          type="sunmit"
+          sx={{ mt: 2 }}
         >
-          Submit
+          {loading ? "Submitting..." : "Submit"}
         </Button>
       </Box>
     </>

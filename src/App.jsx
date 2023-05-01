@@ -1,17 +1,17 @@
-import ContactUsForm from "./components/ContactUsForm";
-import FormHeader from "./components/FormHeader";
+import Form from "./components/Form";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 
 function App() {
-  
   return (
-    <Container component="main" fixed>
-      <Box component="main" className="container" >
-        <FormHeader />
-        <ContactUsForm />
+    <Box component="main" className="container">
+      <Box component="header" className="header">
+        <Typography component="h1" variant="h4">
+          Contact Us
+        </Typography>
       </Box>
-    </Container>
+      <Form />
+    </Box>
   );
 }
 

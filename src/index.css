@@ -7,32 +7,29 @@
   font-family: "Roboto";
 }
 
-/* body {
+body {
   height: 100vh;
-} */
-
-.container {
-  margin-top: 50px;
-}
-
-.header {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.container {
+  width: 500px;
+  height: 580px;
+  border: 1px dashed grey;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin: 30px 0;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-}
-
-.input {
-  width: 30%;
-}
-
-.message.input {
-  width: 30%;
-  margin-bottom: 2rem;
 }
