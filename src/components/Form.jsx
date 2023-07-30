@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   name: "",
   email: "",
   subject: "",
-  comment: "",
+  inquiry: "",
 };
 
 export default function Form() {
@@ -33,7 +33,7 @@ export default function Form() {
         message: "Invalid email ",
       },
     ],
-    comment: [
+    inquiry: [
       {
         isValid: (value) => !!value,
         message: "Required *",
@@ -131,15 +131,15 @@ export default function Form() {
           />
         </div>
         <div className="input">
-          <label htmlFor="comment">Message</label>
+          <label htmlFor="inquiry">Message</label>
           <textarea
-            id="comment"
+            id="inquiry"
             rows="8"
-            value={form.comment}
+            value={form.inquiry}
             onChange={handleChange}
           ></textarea>
-          {errorFields.comment?.length ? (
-            <span>{errorFields.comment[0].message}</span>
+          {errorFields.inquiry?.length ? (
+            <span>{errorFields.inquiry[0].message}</span>
           ) : null}
         </div>
         <button type="submit">{Loading ? "Submitting..." : "Submit"}</button>
